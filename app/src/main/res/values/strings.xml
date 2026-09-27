@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Priva AI</string>
+    <string name="channel_briefings_name">Priva AI Daily Briefings</string>
+    <string name="channel_briefings_desc">Daily morning/evening intelligence reports</string>
+    <string name="channel_urgent_name">Priva AI Urgent Alerts</string>
+    <string name="channel_urgent_desc">Missed calls, alarms, and urgent message alerts</string>
+</resources>

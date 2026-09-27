@@ -1,0 +1,6 @@
+{
+  "name": "Priva AI",
+  "description": "Private on-device personal AI assistant that monitors missed calls, alarms, urgent messages, traffic, local news, and sector economic forecasts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
