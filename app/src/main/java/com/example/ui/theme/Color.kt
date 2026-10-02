@@ -2,30 +2,48 @@ package com.example.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Priva AI Modern Palette
-val DarkBg = Color(0xFF090D16)
-val DarkSurface = Color(0xFF111726)
-val DarkSurfaceVariant = Color(0xFF192237)
-val DarkCardBorder = Color(0xFF263552)
+// J.A.R.V.I.S. Monochromatic High-Contrast Black & White with Sea Blue Illuminations
+val PitchBlack = Color(0xFF000000)
+val DarkVoid = Color(0xFF05070B)
+val DarkSurface = Color(0xFF0B1019)
+val DarkSurfaceVariant = Color(0xFF121724)
+val DarkCardBorder = Color(0xFF1E283D)
 
-val ElectricTeal = Color(0xFF00E5BE)
-val ElectricCyan = Color(0xFF38BDF8)
-val NeonIndigo = Color(0xFF818CF8)
-val DeepIndigo = Color(0xFF4F46E5)
+// Illuminated Sea Blue & Electric Cyan Accents
+val SeaBlue = Color(0xFF00D4FF)             // Vibrant Illuminated Sea Blue
+val SeaBlueGlow = Color(0xFF00A3FF)         // Electric Ocean Blue
+val SeaBlueDeep = Color(0xFF0077B6)         // Deep Sea Accent
+val ElectricCyan = Color(0xFF00E5FF)        // Arc Reactor Cyan
+val ElectricTeal = Color(0xFF00F5D4)        // Mint Teal
 
-val AlertRed = Color(0xFFFF4B6E)
-val WarningAmber = Color(0xFFFBBF24)
-val SuccessGreen = Color(0xFF34D399)
+// High-Contrast Monochrome
+val PureWhite = Color(0xFFFFFFFF)
+val OffWhite = Color(0xFFF1F5F9)
+val GrayBorder = Color(0xFF263248)
+val TextMuted = Color(0xFF8E9BAE)
 
-val TextPrimaryDark = Color(0xFFF1F5F9)
-val TextSecondaryDark = Color(0xFF94A3B8)
+// Status & Telemetry
+val AlertRed = Color(0xFFFF3366)
+val WarningAmber = Color(0xFFFFB300)
+val SuccessGreen = Color(0xFF00E676)
+val StarkGold = Color(0xFFFFC107)
+val StarkAmber = Color(0xFFF59E0B)
+
+// Compatibility aliases
+val DarkBg = PitchBlack
+val ArcReactorBlue = SeaBlue
+val HologramGlow = SeaBlueGlow
+val NeonIndigo = Color(0xFF38BDF8)
+val DeepIndigo = Color(0xFF0284C7)
+val TextPrimaryDark = PureWhite
+val TextSecondaryDark = TextMuted
 val TextMutedDark = Color(0xFF64748B)
 
-// Light Theme Palette
+// Light theme fallback
 val LightBg = Color(0xFFF8FAFC)
 val LightSurface = Color(0xFFFFFFFF)
 val LightSurfaceVariant = Color(0xFFF1F5F9)
-val LightCardBorder = Color(0xFFE2E8F0)
-val TextPrimaryLight = Color(0xFF0F172A)
-val TextSecondaryLight = Color(0xFF475569)
-val PrimaryBlueLight = Color(0xFF0284C7)
+val LightCardBorder = Color(0xFFCBD5E1)
+val TextPrimaryLight = Color(0xFF05070B)
+val TextSecondaryLight = Color(0xFF334155)
+val PrimaryBlueLight = SeaBlueGlow

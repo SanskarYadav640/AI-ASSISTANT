@@ -1,5 +1,9 @@
 package com.example.ui.screens
 
+import android.Manifest
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -18,9 +22,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.Security
@@ -30,6 +36,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
@@ -48,6 +55,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -73,8 +81,30 @@ fun PrivacySettingsScreen(
     val traffic by viewModel.commuteTraffic.collectAsStateWithLifecycle()
 
     var selectedIntervalHours by remember { mutableIntStateOf(2) }
-    var homeInput by remember(traffic) { mutableStateOf(traffic?.homeAddress ?: "742 Evergreen Crest, West Hills") }
-    var officeInput by remember(traffic) { mutableStateOf(traffic?.officeAddress ?: "100 Silicon Way, Tech Campus") }
+    var homeInput by remember(traffic) { mutableStateOf(traffic?.homeAddress ?: "Current Detected Location") }
+    var officeInput by remember(traffic) { mutableStateOf(traffic?.officeAddress ?: "Seawoods Grand Central Mall, Navi Mumbai") }
+
+    val context = LocalContext.current
+    var isDetectingLocationForHome by remember { mutableStateOf(false) }
+    var isDetectingLocationForOffice by remember { mutableStateOf(false) }
+    var locationStatusMessage by remember { mutableStateOf<String?>(null) }
+
+    val locationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val granted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
+                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
+        if (granted) {
+            locationStatusMessage = "Location permission granted. Detecting your current GPS position..."
+            viewModel.detectCurrentLocation { address ->
+                homeInput = address
+                locationStatusMessage = "Detected & Set Home: $address"
+                viewModel.updateCommuteRoute(homeInput, officeInput)
+            }
+        } else {
+            locationStatusMessage = "Location permission denied. You can still type your address manually."
+        }
+    }
 
     val sdf = remember { SimpleDateFormat("h:mm a, MMM d", Locale.getDefault()) }
 
@@ -285,10 +315,51 @@ fun PrivacySettingsScreen(
                     )
 
                     Spacer(modifier = Modifier.height(12.dp))
+
+                    // 1-Tap GPS detect button
+                    Button(
+                        onClick = {
+                            if (viewModel.locationController.hasLocationPermission()) {
+                                locationStatusMessage = "Detecting GPS location..."
+                                viewModel.detectDetailedLocation { result ->
+                                    homeInput = result.fullAddress
+                                    locationStatusMessage = "Detected: ${result.fullAddress}"
+                                    viewModel.updateCommuteRoute(homeInput, officeInput)
+                                    Toast.makeText(context, "Detected & Set Home: ${result.fullAddress}", Toast.LENGTH_LONG).show()
+                                }
+                            } else {
+                                locationPermissionLauncher.launch(
+                                    arrayOf(
+                                        Manifest.permission.ACCESS_FINE_LOCATION,
+                                        Manifest.permission.ACCESS_COARSE_LOCATION
+                                    )
+                                )
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = ElectricTeal),
+                        shape = RoundedCornerShape(10.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(imageVector = Icons.Default.MyLocation, contentDescription = null, tint = Color(0xFF00382E), modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(text = "Detect My Current Location (GPS)", color = Color(0xFF00382E), fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                    }
+
+                    if (locationStatusMessage != null) {
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            text = locationStatusMessage ?: "",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = ElectricCyan,
+                            fontSize = 11.sp
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
                     OutlinedTextField(
                         value = homeInput,
                         onValueChange = { homeInput = it },
-                        label = { Text("Home Location") },
+                        label = { Text("Home Location / Origin") },
                         leadingIcon = {
                             Icon(imageVector = Icons.Default.Home, contentDescription = null, tint = ElectricTeal)
                         },
@@ -305,7 +376,7 @@ fun PrivacySettingsScreen(
                     OutlinedTextField(
                         value = officeInput,
                         onValueChange = { officeInput = it },
-                        label = { Text("Office Location") },
+                        label = { Text("Office Location / Destination") },
                         leadingIcon = {
                             Icon(imageVector = Icons.Default.Work, contentDescription = null, tint = ElectricCyan)
                         },
@@ -322,12 +393,13 @@ fun PrivacySettingsScreen(
                     Button(
                         onClick = {
                             viewModel.updateCommuteRoute(homeInput, officeInput)
+                            Toast.makeText(context, "Commute route saved successfully!", Toast.LENGTH_SHORT).show()
                         },
-                        colors = ButtonDefaults.buttonColors(containerColor = DarkSurfaceVariant),
+                        colors = ButtonDefaults.buttonColors(containerColor = ElectricCyan),
                         shape = RoundedCornerShape(10.dp),
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(text = "Save Commute Route", color = ElectricTeal)
+                        Text(text = "Save Commute Route", color = Color(0xFF003548), fontWeight = FontWeight.Bold)
                     }
                 }
             }

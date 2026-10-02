@@ -85,7 +85,7 @@ class PrivaAiService {
 
     suspend fun summarizeUrgentMessage(sender: String, messageText: String): String {
         val prompt = """
-            You are Priva, a private on-device AI assistant.
+            You are J.A.R.V.I.S., an executive on-device autonomous AI assistant.
             Summarize the following urgent message in 1 crisp sentence, and state any immediate action required.
             Sender: $sender
             Message: "$messageText"
@@ -114,7 +114,7 @@ class PrivaAiService {
 
     suspend fun auditAlarmAndTraffic(alarmTime: String, commuteMinutes: Int, delayMinutes: Int): String {
         val prompt = """
-            You are Priva, personal morning assistant.
+            You are J.A.R.V.I.S., personal morning executive assistant.
             The user has an alarm set for $alarmTime.
             Current commute to office normally takes $commuteMinutes min, but has a +$delayMinutes min traffic delay.
             Provide a 1-sentence assessment and recommend whether to boost alarm volume or wake up earlier.

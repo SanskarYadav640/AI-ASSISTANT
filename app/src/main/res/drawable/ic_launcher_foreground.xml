@@ -5,48 +5,58 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Outer Glow Shield -->
+
+    <!-- Outer Sea Blue Arc Reactor Ring -->
     <path
-        android:pathData="M54,24 L78,33 C78,57 66,74 54,82 C42,74 30,57 30,33 Z"
+        android:pathData="M54,54m-28,0a28,28 0,1 1,56 0a28,28 0,1 1,-56 0"
         android:strokeWidth="2.5"
-        android:strokeColor="#38BDF8"
-        android:strokeLineCap="round"
+        android:strokeColor="#00D4FF"
+        android:fillColor="#00000000" />
+
+    <!-- 6 Tactical Radial Segment Spokes -->
+    <path
+        android:pathData="M54,23 L54,30 M54,78 L54,85 M27,38 L33,42 M75,66 L81,70 M27,70 L33,66 M75,42 L81,38"
+        android:strokeWidth="2.2"
+        android:strokeColor="#00A3FF"
+        android:strokeLineCap="round" />
+
+    <!-- Middle Concentric Ring with Contrast Dash Accents -->
+    <path
+        android:pathData="M54,54m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0"
+        android:strokeWidth="1.8"
+        android:strokeColor="#FFFFFF"
+        android:fillColor="#0D1A2D" />
+
+    <!-- Inner Triangular Arc Power Core -->
+    <path
+        android:pathData="M54,39 L67,61 L41,61 Z"
+        android:strokeWidth="2.0"
+        android:strokeColor="#00E5FF"
         android:strokeLineJoin="round">
         <aapt:attr name="android:fillColor">
             <gradient
                 android:startX="54"
-                android:startY="24"
+                android:startY="39"
                 android:endX="54"
-                android:endY="82"
+                android:endY="61"
                 android:type="linear">
-                <item android:color="#2638BDF8" android:offset="0.0" />
-                <item android:color="#1A6366F1" android:offset="0.6" />
-                <item android:color="#05818CF8" android:offset="1.0" />
+                <item android:color="#4D00D4FF" android:offset="0.0" />
+                <item android:color="#1A0077B6" android:offset="1.0" />
             </gradient>
         </aapt:attr>
     </path>
 
-    <!-- Core AI Neural Spark / Diamond -->
+    <!-- Core Energy Singularity (Pure White Spark with Sea Blue Halo) -->
     <path
-        android:pathData="M54,39 L64,52 L54,65 L44,52 Z"
-        android:fillColor="#38BDF8" />
-
-    <!-- Center Pulse Core -->
+        android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
+        android:fillColor="#00D4FF" />
     <path
-        android:pathData="M54,48m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0"
+        android:pathData="M54,54m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0"
         android:fillColor="#FFFFFF" />
 
-    <!-- Privacy Lock Shackle Accent at Bottom Core -->
+    <!-- High-tech Vertex Corner Accents -->
     <path
-        android:pathData="M48,56 L48,63 C48,66.3 50.7,69 54,69 C57.3,69 60,66.3 60,63 L60,56"
-        android:strokeWidth="2.2"
-        android:strokeColor="#818CF8"
-        android:strokeLineCap="round"
-        android:fillColor="#00000000" />
-
-    <!-- Top AI Antenna Accent -->
-    <path
-        android:pathData="M54,24 L54,28"
+        android:pathData="M54,34 L54,37 M69,63 L66,61 M39,63 L42,61"
         android:strokeWidth="2.5"
         android:strokeColor="#FFFFFF"
         android:strokeLineCap="round" />

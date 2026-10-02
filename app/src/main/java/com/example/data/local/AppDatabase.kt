@@ -6,14 +6,23 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.data.local.dao.PrivaDao
 import com.example.data.local.entity.AlarmEntity
+import com.example.data.local.entity.CalendarEventEntity
 import com.example.data.local.entity.CommuteTrafficEntity
+import com.example.data.local.entity.DailyPlanItemEntity
 import com.example.data.local.entity.EmailDigestEntity
+import com.example.data.local.entity.IndiaMarketEntity
 import com.example.data.local.entity.MissedCallEntity
 import com.example.data.local.entity.NewsItemEntity
 import com.example.data.local.entity.NotificationLogEntity
+import com.example.data.local.entity.PhoneUnlockLogEntity
 import com.example.data.local.entity.PrivaSettingsEntity
 import com.example.data.local.entity.SectorInflationEntity
+import com.example.data.local.entity.SavedDestinationEntity
+import com.example.data.local.entity.CarConnectionLogEntity
+import com.example.data.local.entity.InterceptedNotificationEntity
+import com.example.data.local.entity.SmartWatchHealthEntity
 import com.example.data.local.entity.UrgentMessageEntity
+import com.example.data.local.entity.WaterIntakeLogEntity
 
 @Database(
     entities = [
@@ -22,12 +31,21 @@ import com.example.data.local.entity.UrgentMessageEntity
         UrgentMessageEntity::class,
         EmailDigestEntity::class,
         CommuteTrafficEntity::class,
+        IndiaMarketEntity::class,
         NewsItemEntity::class,
         SectorInflationEntity::class,
         NotificationLogEntity::class,
-        PrivaSettingsEntity::class
+        PrivaSettingsEntity::class,
+        PhoneUnlockLogEntity::class,
+        CalendarEventEntity::class,
+        SmartWatchHealthEntity::class,
+        WaterIntakeLogEntity::class,
+        DailyPlanItemEntity::class,
+        SavedDestinationEntity::class,
+        CarConnectionLogEntity::class,
+        InterceptedNotificationEntity::class
     ],
-    version = 1,
+    version = 7,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -43,7 +61,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "priva_ai_vault.db"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

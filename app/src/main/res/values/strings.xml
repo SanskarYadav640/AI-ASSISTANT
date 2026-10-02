@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Priva AI</string>
-    <string name="channel_briefings_name">Priva AI Daily Briefings</string>
-    <string name="channel_briefings_desc">Daily morning/evening intelligence reports</string>
-    <string name="channel_urgent_name">Priva AI Urgent Alerts</string>
-    <string name="channel_urgent_desc">Missed calls, alarms, and urgent message alerts</string>
+    <string name="app_name">JARVIS</string>
+    <string name="channel_briefings_name">JARVIS Protocol &amp; Briefings</string>
+    <string name="channel_briefings_desc">Daily master plan, diet &amp; hydration notifications</string>
+    <string name="channel_urgent_name">JARVIS Priority Interceptor</string>
+    <string name="channel_urgent_desc">Intercepted missed calls, alarms, and urgent message alerts</string>
+    <string name="channel_lifestyle_name">JARVIS Health &amp; Routine</string>
+    <string name="channel_lifestyle_desc">Water hydration and Maharashtra meal protocol reminders</string>
 </resources>

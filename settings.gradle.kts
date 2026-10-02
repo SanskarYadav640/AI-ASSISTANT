@@ -22,6 +22,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "Priva AI"
+rootProject.name = "JARVIS"
 
 include(":app")
